@@ -1,0 +1,25 @@
+# Logs
+*.log
+
+# Dumps de banco de dados
+*.sql
+*.dump
+
+# Configurações específicas do ambiente
+.env
+*.env
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos gerados por ferramentas de desenvolvimento
+.idea/
+.vscode/
+
+# Dependências instaladas
+node_modules/
+vendor/
+
+# Outras pastas ou arquivos temporários
+/tmp/
