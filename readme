@@ -1,0 +1,103 @@
+# Sistema de Controle de Estoque
+
+Este projeto implementa um Sistema de Controle de Estoque simples utilizando SQL. O sistema permite gerenciar produtos, fornecedores e pedidos de reposição de maneira eficiente, realizando operações como inserção, consulta, atualização e exclusão de dados.
+
+## Funcionalidades
+
+- Gerenciamento de produtos e estoque.
+- Manutenção de uma lista de fornecedores.
+- Controle de pedidos de reposição.
+- Atualização de quantidade de produtos em estoque após a reposição.
+- Exclusão de produtos descontinuados ou fornecedores que não fazem mais parte da empresa.
+
+## Estrutura do Banco de Dados
+
+### Tabelas
+
+1. **Fornecedores**
+   - `FornecedorID`: Identificador único do fornecedor (chave primária).
+   - `NomeFornecedor`: Nome do fornecedor.
+   - `ContatoFornecedor`: Contato do fornecedor (email, telefone, etc.).
+   - `EnderecoFornecedor`: Endereço do fornecedor.
+
+2. **Produtos**
+   - `ProdutoID`: Identificador único do produto (chave primária).
+   - `NomeProduto`: Nome do produto.
+   - `Preco`: Preço unitário do produto.
+   - `QuantidadeEmEstoque`: Quantidade disponível em estoque.
+   - `FornecedorID`: Chave estrangeira que referencia a tabela `Fornecedores`.
+
+3. **PedidosReposicao**
+   - `PedidoID`: Identificador único do pedido (chave primária).
+   - `ProdutoID`: Chave estrangeira que referencia a tabela `Produtos`.
+   - `QuantidadeReposta`: Quantidade reposta do produto no pedido.
+   - `DataPedido`: Data em que o pedido foi realizado.
+
+## Comandos SQL Utilizados
+
+- `CREATE DATABASE`: Cria o banco de dados.
+- `CREATE TABLE`: Cria as tabelas do banco de dados.
+- `INSERT INTO`: Insere novos registros nas tabelas.
+- `SELECT`: Realiza consultas para exibir dados armazenados nas tabelas.
+- `UPDATE`: Atualiza os dados das tabelas, como a quantidade de produtos em estoque.
+- `DELETE`: Remove registros de uma tabela, como produtos descontinuados ou pedidos processados.
+
+## Exemplo de Uso
+
+1. Criar o banco de dados:
+    ```sql
+    CREATE DATABASE SistemaControleEstoque;
+    USE SistemaControleEstoque;
+    ```
+
+2. Criar as tabelas:
+    ```sql
+    CREATE TABLE Fornecedores (...);
+    CREATE TABLE Produtos (...);
+    CREATE TABLE PedidosReposicao (...);
+    ```
+
+3. Inserir dados iniciais nas tabelas:
+    ```sql
+    INSERT INTO Fornecedores (NomeFornecedor, ContatoFornecedor, EnderecoFornecedor)
+    VALUES ('Fornecedor A', 'contatoA@fornecedor.com', 'Rua A, 123'), 
+           ('Fornecedor B', 'contatoB@fornecedor.com', 'Rua B, 456');
+    ```
+
+4. Consultar dados:
+    ```sql
+    SELECT NomeProduto, QuantidadeEmEstoque FROM Produtos;
+    ```
+
+5. Atualizar dados:
+    ```sql
+    UPDATE Produtos SET QuantidadeEmEstoque = QuantidadeEmEstoque + 30 WHERE ProdutoID = 1;
+    ```
+
+6. Excluir dados:
+    ```sql
+    DELETE FROM PedidosReposicao WHERE ProdutoID = 2;
+    DELETE FROM Produtos WHERE ProdutoID = 2;
+    ```
+
+## Dependências
+
+- Um banco de dados SQL compatível (MySQL, MariaDB, etc.).
+- Ferramenta de gerenciamento de banco de dados (MySQL Workbench, DBeaver, etc.) ou CLI do MySQL.
+
+## Como rodar o projeto
+
+1. Clone este repositório.
+    ```bash
+    git clone https://github.com/seu-usuario/sistema-controle-estoque.git
+    ```
+
+2. Importe o arquivo SQL para o seu banco de dados e execute os comandos na sua interface de gerenciamento de banco de dados preferida.
+
+## Contribuições
+
+Sinta-se à vontade para abrir uma issue ou enviar pull requests caso queira contribuir com melhorias para este projeto.
+
+## Licença
+
+Este projeto é licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
