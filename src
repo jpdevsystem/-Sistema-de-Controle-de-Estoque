@@ -1,0 +1,47 @@
+CREATE DATABASE SistemaControleEstoque;
+USE SistemaControleEstoque;
+CREATE TABLE Fornecedores (
+    FornecedorID INT PRIMARY KEY AUTO_INCREMENT,
+    NomeFornecedor VARCHAR(100) NOT NULL,
+    ContatoFornecedor VARCHAR(100),
+    EnderecoFornecedor VARCHAR(255)
+);
+CREATE TABLE Produtos (
+    ProdutoID INT PRIMARY KEY AUTO_INCREMENT,
+    NomeProduto VARCHAR(100) NOT NULL,
+    Preco DECIMAL(10, 2) NOT NULL,
+    QuantidadeEmEstoque INT NOT NULL,
+    FornecedorID INT,
+    FOREIGN KEY (FornecedorID) REFERENCES Fornecedores(FornecedorID)
+);
+CREATE TABLE PedidosReposicao (
+    PedidoID INT PRIMARY KEY AUTO_INCREMENT,
+    ProdutoID INT,
+    QuantidadeReposta INT NOT NULL,
+    DataPedido DATE NOT NULL,
+    FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+);
+INSERT INTO Fornecedores (NomeFornecedor, ContatoFornecedor, EnderecoFornecedor)
+VALUES ('Fornecedor A', 'contatoA@fornecedor.com', 'Rua A, 123'),
+       ('Fornecedor B', 'contatoB@fornecedor.com', 'Rua B, 456');
+INSERT INTO Produtos (NomeProduto, Preco, QuantidadeEmEstoque, FornecedorID)
+VALUES ('Produto X', 15.99, 100, 1),
+       ('Produto Y', 25.50, 50, 2);
+INSERT INTO PedidosReposicao (ProdutoID, QuantidadeReposta, DataPedido)
+VALUES (1, 30, '2024-09-01'),
+       (2, 20, '2024-09-02');
+SELECT NomeProduto, QuantidadeEmEstoque
+FROM Produtos;
+SELECT PedidosReposicao.PedidoID, Produtos.NomeProduto, PedidosReposicao.QuantidadeReposta, PedidosReposicao.DataPedido
+FROM PedidosReposicao
+JOIN Produtos ON PedidosReposicao.ProdutoID = Produtos.ProdutoID;
+SELECT NomeFornecedor, ContatoFornecedor, EnderecoFornecedor
+FROM Fornecedores;
+UPDATE Produtos
+SET QuantidadeEmEstoque = QuantidadeEmEstoque + 30
+WHERE ProdutoID = 1;
+DELETE FROM PedidosReposicao
+WHERE ProdutoID = 2;
+
+DELETE FROM Produtos
+WHERE ProdutoID = 2;
